@@ -15,18 +15,21 @@ opt.on("-o FILE", "--output=FILE", "output file path") { |v| file = v }
 
 opt.parse!(ARGV)
 
-if email.nil? or lvid.nil? or file.nil?
+if email.nil? or lvid.nil?
   print "Error: insufficient argument\n"
   exit 1
 end
 
 begin
-  print "Enter password for user: #{email}\n"
-  password = STDIN.noecho(&:gets).chomp
-
   nico = NicoLiveDownloader.new
-  nico.login(email, password)
-  nico.getplayerstatus(lvid)
+
+  unless nico.login_with_stored_session(email) and nico.getplayerstatus(lvid)
+    print "Enter password for user: #{email}\n"
+    password = STDIN.noecho(&:gets).chomp
+    nico.login(email, password)
+    nico.getplayerstatus(lvid)
+  end
+
   nico.download(file)
 rescue => e
   p e.message
