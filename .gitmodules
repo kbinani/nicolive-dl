@@ -1,0 +1,3 @@
+[submodule "ext/rtmpdump"]
+	path = ext/rtmpdump
+	url = https://github.com/taonico/rtmpdump-nico-live.git
