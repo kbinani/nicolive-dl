@@ -15,6 +15,8 @@ class NicoLiveDownloader
 
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
     res = http.start {|http| http.request(req) }
     @user_session = res.get_fields("set-cookie").select { |cookie|
       (not (cookie =~ /^user_session=deleted;/)) and (cookie =~ /^user_session=/)
