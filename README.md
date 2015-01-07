@@ -22,7 +22,7 @@ nmake -f Makefile.msvc.mak
 
 ```
 git submodule update --init --recursive
-nmake -f Makefile.posix.mak
+make -f Makefile.posix.mak
 ```
 
 # How to use
