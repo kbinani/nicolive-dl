@@ -18,6 +18,13 @@ git submodule update --init --recursive
 nmake -f Makefile.msvc.mak
 ```
 
+## Linux
+
+```
+git submodule update --init --recursive
+nmake -f Makefile.posix.mak
+```
+
 # How to use
 
 ```
