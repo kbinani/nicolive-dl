@@ -4,25 +4,18 @@ A command line tool to download nicolive TS(time-shift), written in Ruby.
 
 # How to build
 
-## OSX
+## OSX, Linux
 
 ```
-git submodule update --init --recursive
-make -f Makefile.osx.mak
+git submodule update --init
+make
 ```
 
 ## Windows
 
 ```
 git submodule update --init --recursive
-nmake -f Makefile.msvc.mak
-```
-
-## Linux
-
-```
-git submodule update --init --recursive
-make -f Makefile.posix.mak
+nmake
 ```
 
 # How to use
