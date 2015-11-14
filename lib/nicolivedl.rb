@@ -48,8 +48,10 @@ class NicoLiveDownloader
 
     content_default_name = nil
     content_premium_name = nil
+
+    # extract content name when it differs between niconico membership type.
     xml.elements.each(quesheet_xpath) { |que|
-      if que.text.start_with?("/play ")
+      if que.text.start_with?("/play case:")
         case_list = que.text.split("/play case:")[1].split(" ")[0].split(",")
         case_list.each { |c|
           if c.start_with?("default:rtmp:")
@@ -60,6 +62,20 @@ class NicoLiveDownloader
         }
       end
     }
+
+    # extract content name.
+    if content_default_name.nil? or content_premium_name.nil?
+      xml.elements.each(quesheet_xpath) { |que|
+        # extract "content_name" from "/play rtmp:content_name"
+        # this may be same as #{lvid}
+        if que.text.start_with?("/play rtmp:")
+          content_name = que.text.split("/play rtmp:")[1].split(" ")[0]
+          content_default_name = content_name
+          content_premium_name = content_name
+        end
+      }
+    end
+
     @content_default = publish_list[content_default_name]
     @content_premium = publish_list[content_premium_name]
   end
